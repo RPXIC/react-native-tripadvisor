@@ -6,7 +6,7 @@ import * as firebase from 'firebase'
 export default function App() {
 	useEffect(() => {
 		firebase.auth().onAuthStateChanged(user => {
-			console.log(user)
+			console.log('app up')
 		})
 	}, [])
 
