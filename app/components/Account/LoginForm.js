@@ -7,8 +7,7 @@ import * as firebase from 'firebase'
 import { validateEmail } from '../../utils/validations'
 import Loading from '../Loading'
 
-const LoginForm = props => {
-	const { toastRef } = props
+const LoginForm = ({ toastRef }) => {
 	const [showPassword, setShowPassword] = useState(false)
 	const [formData, setFormData] = useState(defaultFormValues())
 	const [loading, setLoading] = useState(false)

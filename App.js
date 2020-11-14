@@ -1,14 +1,11 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import { LogBox } from 'react-native'
 import Navigation from './app/navigations/Navigation'
-import { firebasApp } from './app/utils/firebase'
 import * as firebase from 'firebase'
+import { firebasApp } from './app/utils/firebase'
+
+LogBox.ignoreLogs(['Setting a timer'])
 
 export default function App() {
-	useEffect(() => {
-		firebase.auth().onAuthStateChanged(user => {
-			console.log('app up')
-		})
-	}, [])
-
 	return <Navigation />
 }
