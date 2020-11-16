@@ -7,7 +7,7 @@ import { validateEmail } from '../../utils/validations'
 import { size, isEmpty } from 'lodash'
 import * as firebase from 'firebase'
 
-const RegisterForm = props => {
+const RegisterForm = (props) => {
 	const { toastRef } = props
 	const [showPassword, setShowPassword] = useState(false)
 	const [showRepeatPassword, setShowRepeatPassword] = useState(false)
@@ -21,7 +21,7 @@ const RegisterForm = props => {
 			isEmpty(formData.password) ||
 			isEmpty(formData.repeatPassword)
 		) {
-			toastRef.current.show('All labels are required')
+			toastRef.current.show('All fields are required')
 		} else if (!validateEmail(formData.email)) {
 			toastRef.current.show('Invalid email')
 		} else if (formData.password !== formData.repeatPassword) {
@@ -40,7 +40,7 @@ const RegisterForm = props => {
 					setLoading(false)
 					navigation.navigate('account')
 				})
-				.catch(err => {
+				.catch((err) => {
 					setLoading(false)
 					toastRef.current.show(err.message)
 				})
@@ -54,26 +54,26 @@ const RegisterForm = props => {
 	return (
 		<View style={styles.formContainer}>
 			<Input
-				placeholder="Email"
+				placeholder='Email'
 				containerStyle={styles.inputForm}
-				onChange={e => onChange(e, 'email')}
+				onChange={(e) => onChange(e, 'email')}
 				rightIcon={
 					<Icon
-						type="material-community"
-						name="at"
+						type='material-community'
+						name='at'
 						iconStyle={styles.iconRight}
 					/>
 				}
 			/>
 			<Input
-				placeholder="Password"
+				placeholder='Password'
 				containerStyle={styles.inputForm}
-				onChange={e => onChange(e, 'password')}
+				onChange={(e) => onChange(e, 'password')}
 				password={true}
 				secureTextEntry={!showPassword}
 				rightIcon={
 					<Icon
-						type="material-community"
+						type='material-community'
 						name={showPassword ? 'eye-off-outline' : 'eye-outline'}
 						iconStyle={styles.iconRight}
 						onPress={() => setShowPassword(!showPassword)}
@@ -81,14 +81,14 @@ const RegisterForm = props => {
 				}
 			/>
 			<Input
-				placeholder="Repeat password"
+				placeholder='Repeat password'
 				containerStyle={styles.inputForm}
-				onChange={e => onChange(e, 'repeatPassword')}
+				onChange={(e) => onChange(e, 'repeatPassword')}
 				password={true}
 				secureTextEntry={!showRepeatPassword}
 				rightIcon={
 					<Icon
-						type="material-community"
+						type='material-community'
 						name={
 							showRepeatPassword
 								? 'eye-off-outline'
@@ -102,12 +102,12 @@ const RegisterForm = props => {
 				}
 			/>
 			<Button
-				title="Send"
+				title='Send'
 				containerStyle={styles.btnContainerRegister}
 				buttonStyle={styles.btnRegister}
 				onPress={onSubmit}
 			/>
-			<Loading isVisible={loading} text="Creating account..." />
+			<Loading isVisible={loading} text='Creating account...' />
 		</View>
 	)
 }
