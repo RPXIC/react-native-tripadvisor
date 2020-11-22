@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { StyleSheet, View } from 'react-native'
-import { ListItem } from 'react-native-elements'
+import { View } from 'react-native'
+import { Icon, ListItem } from 'react-native-elements'
 import { map } from 'lodash'
 import Modal from '../Modal'
 import ChangeDisplayNameForm from './ChangeDisplayNameForm'
@@ -55,22 +55,21 @@ const AccountOptions = ({ userInfo, toastRef, setReloadUserInfo }) => {
 	return (
 		<View>
 			{map(menuOptions, (menu, index) => (
-				<ListItem
-					key={index}
-					title={menu.title}
-					leftIcon={{
-						type: menu.iconType,
-						name: menu.iconNameLeft,
-						color: menu.iconColorLeft,
-					}}
-					rightIcon={{
-						type: menu.iconType,
-						name: menu.iconNameRight,
-						color: menu.iconColorRight,
-					}}
-					containerStyle={styles.menuItem}
-					onPress={menu.onPress}
-				/>
+				<ListItem key={index} onPress={menu.onPress} bottomDivider>
+					<Icon
+						type={menu.iconType}
+						name={menu.iconNameLeft}
+						color={menu.iconColorLeft}
+					/>
+					<ListItem.Content>
+						<ListItem.Title>{menu.title}</ListItem.Title>
+					</ListItem.Content>
+					<Icon
+						type={menu.iconType}
+						name={menu.iconNameRight}
+						color={menu.iconColorRight}
+					/>
+				</ListItem>
 			))}
 			{renderComponent && (
 				<Modal isVisible={showModal} setIsVisible={setShowModal}>
@@ -112,12 +111,5 @@ function generateOptions(selectedComponent) {
 		},
 	]
 }
-
-const styles = StyleSheet.create({
-	menuItem: {
-		borderBottomWidth: 1,
-		borderBottomColor: '#e3e3e3',
-	},
-})
 
 export default AccountOptions
