@@ -41,26 +41,26 @@ const LoginForm = ({ toastRef }) => {
 	return (
 		<View style={styles.formContainer}>
 			<Input
-				placeholder="Email"
+				placeholder='Email'
 				containerStyle={styles.inputForm}
-				onChange={e => onChange(e, 'email')}
+				onChange={(e) => onChange(e, 'email')}
 				rightIcon={
 					<Icon
-						type="material-community"
-						name="at"
+						type='material-community'
+						name='at'
 						iconStyle={styles.iconRight}
 					/>
 				}
 			/>
 			<Input
-				placeholder="Password"
+				placeholder='Password'
 				containerStyle={styles.inputForm}
 				password={true}
 				secureTextEntry={!showPassword}
-				onChange={e => onChange(e, 'password')}
+				onChange={(e) => onChange(e, 'password')}
 				rightIcon={
 					<Icon
-						type="material-community"
+						type='material-community'
 						name={showPassword ? 'eye-off-outline' : 'eye-outline'}
 						iconStyle={styles.iconRight}
 						onPress={() => setShowPassword(!showPassword)}
@@ -68,12 +68,12 @@ const LoginForm = ({ toastRef }) => {
 				}
 			/>
 			<Button
-				title="Log In"
+				title='Log In'
 				containerStyle={styles.btnContainerLogin}
 				buttonStyle={styles.btnLogin}
 				onPress={onSubmit}
 			/>
-			<Loading isVisible={loading} text="Login..." />
+			<Loading isVisible={loading} text='Login...' />
 		</View>
 	)
 }

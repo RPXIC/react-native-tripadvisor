@@ -1,8 +1,9 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback, useRef } from 'react'
 import { StyleSheet, View, Text, ScrollView, Dimensions } from 'react-native'
 import { Rating, ListItem, Icon } from 'react-native-elements'
 import { useFocusEffect } from '@react-navigation/native'
-import { map } from 'lodash'
+import Toast from 'react-native-easy-toast'
+import { map, set } from 'lodash'
 import { firebaseApp } from '../../utils/firebase'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
@@ -14,18 +15,20 @@ import ListReviews from '../../components/Restaurants/ListReviews'
 const db = firebase.firestore(firebaseApp)
 const screenWidth = Dimensions.get('window').width
 
-const Restaurant = ({
-	navigation,
-	route: {
-		params: { id, name },
-	},
-}) => {
+const Restaurant = ({ navigation, route: { params: { id, name } } }) => {
 	const [restaurant, setRestaurant] = useState(null)
 	const [rating, setRating] = useState(0)
+	const [isFav, setIsFav] = useState(false)
+	const [userLogged, setUserLoged] = useState(false)
+	const toastRef = useRef()
 
 	useEffect(() => {
 		navigation.setOptions({ title: name })
 	}, [])
+
+	firebase.auth().onAuthStateChanged(user => {
+		user ? setUserLoged(true) : setUserLoged(false)
+	})
 
 	useFocusEffect(
 		useCallback(() => {
@@ -41,10 +44,73 @@ const Restaurant = ({
 		}, [])
 	)
 
+	useEffect(() => {
+		if (userLogged && restaurant) {
+			db.collection('favorites')
+				.where('idRestaurant', '==', restaurant.id)
+				.where('idUser', '==', firebase.auth().currentUser.uid)
+				.get()
+				.then(res => {
+					if (res.docs.length === 1) {
+						setIsFav(true)
+					}
+				})
+		}
+	},[userLogged, restaurant])
+
+	const toggleFav = () => {
+		if (!userLogged) {
+			toastRef.current.show('Login for add to favorites')
+		} else if (!isFav) {
+			const payload = {
+				idUser: firebase.auth().currentUser.uid,
+				idRestaurant: restaurant.id
+			}
+			db.collection('favorites').add(payload).then(() => {
+				setIsFav(true)
+				toastRef.current.show('Added to favorites')
+			})
+			.catch(() => {
+				toastRef.current.show('Error adding to favorites')
+			})
+		} else if (isFav) {
+			db.collection('favorites')
+			.where('idRestaurant', '==', restaurant.id)
+			.where('idUser', '==', firebase.auth().currentUser.uid)
+			.get()
+			.then(res => {
+				res.forEach(doc => {
+					const idFav = doc.id
+					db.collection('favorites')
+						.doc(idFav)
+						.delete()
+						.then(() => {
+							setIsFav(false)
+							toastRef.current.show('Deleted from favorites')
+						})
+						.catch(() => {
+							toastRef.current.show('Error deleting from favorites')
+						})
+				})
+			})
+		}
+
+	}
+
 	if (!restaurant) return <Loading isVisible={true} text='Loading...' />
 
 	return (
 		<ScrollView vertical style={styles.viewBody}>
+			<View style={styles.viewFavorite}>
+				<Icon
+					type='material-community'
+					name={isFav ? 'heart' : 'heart-outline'}
+					onPress={toggleFav}
+					color={isFav ? '#f00' : '#000'}
+					size={35}
+					underlayColor='transparent'
+				/>
+			</View>
 			<Carousel
 				arrayImages={restaurant.images}
 				height={250}
@@ -61,6 +127,7 @@ const Restaurant = ({
 				address={restaurant.address}
 			/>
 			<ListReviews navigation={navigation} idRestaurant={restaurant.id} />
+			<Toast ref={toastRef} position='center' opacity={0.9} />
 		</ScrollView>
 	)
 }
@@ -156,6 +223,17 @@ const styles = StyleSheet.create({
 	containerListItem: {
 		borderBottomColor: '#d8d8d8',
 		borderBottomWidth: 1,
+	},
+	viewFavorite: {
+		position: 'absolute',
+		top: 0,
+		right: 0,
+		zIndex: 2,
+		backgroundColor: '#ffffff73',
+		borderRadius: 50,
+		margin: 5,
+		marginLeft: 15,
+		padding: 5,
 	},
 })
 
