@@ -13,7 +13,7 @@ const RestaurantsStack = () => {
 			<Stack.Screen
 				name='restaurants'
 				component={Restaurants}
-				options={{ title: 'restaurants' }}
+				options={{ title: 'Restaurants' }}
 			/>
 			<Stack.Screen
 				name='add-restaurant'

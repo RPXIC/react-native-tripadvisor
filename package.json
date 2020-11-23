@@ -21,6 +21,7 @@
     "expo-permissions": "~9.3.0",
     "expo-status-bar": "~1.0.2",
     "firebase": "~7.9.0",
+    "firesql": "^2.0.2",
     "lodash": "^4.17.20",
     "random-uuid-v4": "^0.0.9",
     "react": "16.13.1",

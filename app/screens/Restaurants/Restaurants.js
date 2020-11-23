@@ -73,7 +73,6 @@ const Restaurants = ({ navigation }) => {
 
 	return (
 		<View style={styles.viewBody}>
-			<Text>Restaurants</Text>
 			<ListRestaurants
 				restaurants={restaurants}
 				handleLoadMore={handleLoadMore}
