@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { Button } from 'react-native-elements'
 import Toast from 'react-native-easy-toast'
 import * as firebase from 'firebase'
-import InfoUser from '../../components/Account/InfoUser'
-import Loading from '../../components/Loading'
+import { InfoUser, Loading } from '../../components'
 import AccountOptions from '../../components/Account/AccountOptions'
 
 const UserLogged = () => {

@@ -10,13 +10,13 @@ const Register = () => {
 		<KeyboardAwareScrollView>
 			<Image
 				source={require('../../../assets/img/5-tenedores-letras-icono-logo.png')}
-				resizeMode="contain"
+				resizeMode='contain'
 				style={styles.logo}
 			/>
 			<View style={styles.viewForm}>
 				<RegisterForm toastRef={toastRef} />
 			</View>
-			<Toast ref={toastRef} position="center" opacity={0.9} />
+			<Toast ref={toastRef} position='center' opacity={0.9} />
 		</KeyboardAwareScrollView>
 	)
 }

@@ -11,7 +11,7 @@ const Login = () => {
 		<ScrollView>
 			<Image
 				source={require('../../../assets/img/5-tenedores-letras-icono-logo.png')}
-				resizeMode="contain"
+				resizeMode='contain'
 				style={styles.logo}
 			/>
 			<View style={styles.viewContainer}>
@@ -19,8 +19,7 @@ const Login = () => {
 				<CreateAccount />
 			</View>
 			<Divider style={styles.divider} />
-			<Text>Social Login</Text>
-			<Toast ref={toastRef} position="center" opacity={0.9} />
+			<Toast ref={toastRef} position='center' opacity={0.9} />
 		</ScrollView>
 	)
 }
@@ -33,8 +32,7 @@ function CreateAccount() {
 			Free register{' '}
 			<Text
 				style={styles.btnRegister}
-				onPress={() => navigation.navigate('register')}
-			>
+				onPress={() => navigation.navigate('register')}>
 				Register
 			</Text>
 		</Text>

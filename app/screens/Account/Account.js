@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text } from 'react-native'
 import * as firebase from 'firebase'
-import Loading from '../../components/Loading'
-import UserGuest from './UserGuest'
-import UserLogged from './UserLogged'
+import { Loading } from '../../components'
+import { UserLogged, UserGuest } from '../../screens'
 
-const Acoount = () => {
+const Account = () => {
 	const [login, setLogin] = useState(null)
 
 	useEffect(() => {
-		firebase.auth().onAuthStateChanged(user => {
+		firebase.auth().onAuthStateChanged((user) => {
 			!user ? setLogin(false) : setLogin(true)
 		})
 	}, [])
@@ -19,4 +17,4 @@ const Acoount = () => {
 	return login ? <UserLogged /> : <UserGuest />
 }
 
-export default Acoount
+export default Account

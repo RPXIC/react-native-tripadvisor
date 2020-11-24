@@ -3,12 +3,7 @@ import { StyleSheet, View } from 'react-native'
 import { Input, Button } from 'react-native-elements'
 import * as firebase from 'firebase'
 
-const ChangeDisplayNameForm = ({
-	displayName,
-	setShowModal,
-	toastRef,
-	setReloadUserInfo,
-}) => {
+const ChangeDisplayNameForm = ({ displayName, setShowModal, setReloadUserInfo, }) => {
 	const [newDisplayName, setNewDisplayName] = useState(null)
 	const [error, setError] = useState(null)
 	const [isLoading, setIsLoading] = useState(false)

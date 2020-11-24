@@ -2,13 +2,12 @@ import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Input, Icon, Button } from 'react-native-elements'
-import Loading from '../Loading'
-import { validateEmail } from '../../utils/validations'
 import { size, isEmpty } from 'lodash'
 import * as firebase from 'firebase'
+import { Loading } from '../../components'
+import { validateEmail } from '../../utils/validations'
 
-const RegisterForm = (props) => {
-	const { toastRef } = props
+const RegisterForm = ({ toastRef }) => {
 	const [showPassword, setShowPassword] = useState(false)
 	const [showRepeatPassword, setShowRepeatPassword] = useState(false)
 	const [formData, setFormData] = useState(defaultFormValue())
@@ -47,9 +46,8 @@ const RegisterForm = (props) => {
 		}
 	}
 
-	const onChange = (e, type) => {
+	const onChange = (e, type) =>
 		setFormData({ ...formData, [type]: e.nativeEvent.text })
-	}
 
 	return (
 		<View style={styles.formContainer}>

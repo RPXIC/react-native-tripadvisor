@@ -46,12 +46,7 @@ function Restaurant({
 	},
 	navigation,
 }) {
-	const goToRestaurant = () => {
-		navigation.navigate('restaurant', {
-			id,
-			name,
-		})
-	}
+	const goToRestaurant = () => navigation.navigate('restaurant', { id, name })
 
 	return (
 		<TouchableOpacity onPress={goToRestaurant}>

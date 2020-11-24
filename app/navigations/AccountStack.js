@@ -1,8 +1,7 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
+import { Login, Register } from '../screens'
 import Account from '../screens/Account/Account'
-import Login from '../screens/Account/Login'
-import Register from '../screens/Account/Register'
 
 const Stack = createStackNavigator()
 
@@ -10,17 +9,17 @@ const AccountStack = () => {
 	return (
 		<Stack.Navigator>
 			<Stack.Screen
-				name="account"
+				name='account'
 				component={Account}
 				options={{ title: 'My account' }}
 			/>
 			<Stack.Screen
-				name="login"
+				name='login'
 				component={Login}
 				options={{ title: 'Log In' }}
 			/>
 			<Stack.Screen
-				name="register"
+				name='register'
 				component={Register}
 				option={{ title: 'Register' }}
 			/>

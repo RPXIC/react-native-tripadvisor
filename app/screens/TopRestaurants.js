@@ -4,7 +4,7 @@ import Toast from 'react-native-easy-toast'
 import { firebaseApp } from '../utils/firebase'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-import ListTopRestaurant from '../components/Ranking/ListTopRestaurants'
+import { ListTopRestaurant } from '../components'
 
 const db = firebase.firestore(firebaseApp)
 

@@ -16,24 +16,17 @@ const ChangeEmailForm = ({
 	const [errors, setErrors] = useState({})
 	const [isLoading, setIsLoading] = useState(false)
 
-	const onChange = (e, type) => {
+	const onChange = (e, type) =>
 		setFormData({ ...formData, [type]: e.nativeEvent.text })
-	}
 
 	const onSubmit = () => {
 		setErrors({})
 		if (!formData.email || email === formData.email) {
-			setErrors({
-				email: 'Change email',
-			})
+			setErrors({ email: 'Change email' })
 		} else if (!validateEmail(formData.email)) {
-			setErrors({
-				email: 'Invalid email',
-			})
+			setErrors({ email: 'Invalid email' })
 		} else if (!formData.password) {
-			setErrors({
-				password: 'Write your password',
-			})
+			setErrors({ password: 'Write your password' })
 		} else {
 			setIsLoading(true)
 			reauthenticate(formData.password)
@@ -48,17 +41,13 @@ const ChangeEmailForm = ({
 							setShowModal(false)
 						})
 						.catch(() => {
-							setErrors({
-								email: 'Error updating email',
-							})
+							setErrors({ email: 'Error updating email' })
 							setIsLoading(false)
 						})
 				})
 				.catch(() => {
 					setIsLoading(false)
-					setErrors({
-						password: 'Incorrect password',
-					})
+					setErrors({ password: 'Incorrect password' })
 				})
 		}
 	}

@@ -11,7 +11,7 @@ import firebase from 'firebase/app'
 import 'firebase/storage'
 import 'firebase/firestore'
 import uuid from 'random-uuid-v4'
-import Modal from '../Modal'
+import { Modal } from '../../components'
 const db = firebase.firestore(firebaseApp)
 
 const widthScreen = Dimensions.get('window').width
@@ -72,9 +72,7 @@ const AddRestaurantForm = ({ toastRef, setIsLoading, navigation }) => {
 						.storage()
 						.ref(`restaurants/${result.metadata.name}`)
 						.getDownloadURL()
-						.then((photUrl) => {
-							imageBlob.push(photUrl)
-						})
+						.then((photUrl) => imageBlob.push(photUrl))
 				})
 			})
 		)
@@ -208,8 +206,7 @@ function Map({
 						style={styles.mapStyle}
 						initialRegion={location}
 						showsUserLocation={true}
-						onRegionChange={(region) => setLocation(region)}
-					>
+						onRegionChange={(region) => setLocation(region)}>
 						<MapView.Marker
 							coordinate={{
 								latitude: location.latitude,

@@ -5,7 +5,7 @@ import { useFocusEffect } from '@react-navigation/native'
 import { firebaseApp } from '../../utils/firebase'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-import ListRestaurants from '../../components/Restaurants/ListRestaurants'
+import { ListRestaurants } from '../../components'
 
 const db = firebase.firestore(firebaseApp)
 

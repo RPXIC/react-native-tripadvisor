@@ -85,10 +85,4 @@ function Restaurant({ restaurant, navigation }) {
 	)
 }
 
-const styles = StyleSheet.create({
-	searchBar: {
-		marginBottom: 20,
-	},
-})
-
 export default Search

@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, View, Text } from 'react-native'
-import { Avatar } from 'react-native-elements'
+import { Avatar, Accessory } from 'react-native-elements'
 import AvatarDefault from '../../../assets/img/avatar-default.jpg'
 import * as firebase from 'firebase'
 import * as Permissions from 'expo-permissions'
@@ -28,14 +28,12 @@ const InfoUser = ({ userInfo, toastRef, setLoading, setLoadingText }) => {
 			} else {
 				uploadImage(result.uri)
 					.then(() => updatePhotoUrl())
-					.catch(() => {
-						toastRef.current.show('Error uploading image')
-					})
+					.catch(() => toastRef.current.show('Error uploading image'))
 			}
 		}
 	}
 
-	const uploadImage = async uri => {
+	const uploadImage = async (uri) => {
 		setLoadingText('Updating avatar')
 		setLoading(true)
 		const response = await fetch(uri)
@@ -49,28 +47,27 @@ const InfoUser = ({ userInfo, toastRef, setLoading, setLoadingText }) => {
 			.storage()
 			.ref(`avatar/${uid}`)
 			.getDownloadURL()
-			.then(async res => {
-				const update = {
-					photoURL: res,
-				}
+			.then(async (res) => {
+				const update = { photoURL: res }
 				await firebase.auth().currentUser.updateProfile(update)
 				setLoading(false)
 			})
-			.catch(() => {
-				toastRef.current.show('Error uploading image')
-			})
+			.catch(() => toastRef.current.show('Error uploading image'))
 	}
 
 	return (
 		<View style={styles.viewUserInfo}>
 			<Avatar
 				rounded
-				size="large"
+				size='large'
 				showEditButton
 				onEditPress={changeAvatar}
 				containerStyle={styles.userInfoAvatar}
 				source={photoURL ? { uri: photoURL } : AvatarDefault}
-			/>
+				showAccessory={true}
+				onPress={changeAvatar}>
+				<Accessory size={20} onPress={changeAvatar} />
+			</Avatar>
 			<View>
 				<Text style={styles.displayName}>
 					{displayName ? displayName : 'Anonymous'}

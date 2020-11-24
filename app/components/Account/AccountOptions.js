@@ -2,10 +2,13 @@ import React, { useState } from 'react'
 import { View } from 'react-native'
 import { Icon, ListItem } from 'react-native-elements'
 import { map } from 'lodash'
-import Modal from '../Modal'
-import ChangeDisplayNameForm from './ChangeDisplayNameForm'
-import ChangeEmailForm from './ChangeEmailForm'
-import ChangePasswordForm from './ChangePasswordForm'
+import {
+	Modal,
+	ChangeDisplayNameForm,
+	ChangeEmailForm,
+	ChangePasswordForm,
+} from '../../components'
+import { accountOptionsGenerator } from '../../utils'
 
 const AccountOptions = ({ userInfo, toastRef, setReloadUserInfo }) => {
 	const [renderComponent, setRenderComponent] = useState(null)
@@ -50,7 +53,8 @@ const AccountOptions = ({ userInfo, toastRef, setReloadUserInfo }) => {
 				break
 		}
 	}
-	const menuOptions = generateOptions(selectedComponent)
+
+	const menuOptions = accountOptionsGenerator(selectedComponent)
 
 	return (
 		<View>
@@ -78,38 +82,6 @@ const AccountOptions = ({ userInfo, toastRef, setReloadUserInfo }) => {
 			)}
 		</View>
 	)
-}
-
-function generateOptions(selectedComponent) {
-	return [
-		{
-			title: 'Change name and surname',
-			iconType: 'material-community',
-			iconNameLeft: 'account-circle',
-			iconColorLeft: '#ccc',
-			iconNameRight: 'chevron-right',
-			iconColorRight: '#ccc',
-			onPress: () => selectedComponent('displayName'),
-		},
-		{
-			title: 'Change email',
-			iconType: 'material-community',
-			iconNameLeft: 'at',
-			iconColorLeft: '#ccc',
-			iconNameRight: 'chevron-right',
-			iconColorRight: '#ccc',
-			onPress: () => selectedComponent('email'),
-		},
-		{
-			title: 'Change password',
-			iconType: 'material-community',
-			iconNameLeft: 'lock-reset',
-			iconColorLeft: '#ccc',
-			iconNameRight: 'chevron-right',
-			iconColorRight: '#ccc',
-			onPress: () => selectedComponent('password'),
-		},
-	]
 }
 
 export default AccountOptions

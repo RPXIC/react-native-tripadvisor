@@ -4,8 +4,8 @@ import { Input, Icon, Button } from 'react-native-elements'
 import { isEmpty } from 'lodash'
 import { useNavigation } from '@react-navigation/native'
 import * as firebase from 'firebase'
+import { Loading } from '../../components'
 import { validateEmail } from '../../utils/validations'
-import Loading from '../Loading'
 
 const LoginForm = ({ toastRef }) => {
 	const [showPassword, setShowPassword] = useState(false)
@@ -13,9 +13,8 @@ const LoginForm = ({ toastRef }) => {
 	const [loading, setLoading] = useState(false)
 	const navigation = useNavigation()
 
-	const onChange = (e, type) => {
+	const onChange = (e, type) =>
 		setFormData({ ...formData, [type]: e.nativeEvent.text })
-	}
 
 	const onSubmit = () => {
 		if (isEmpty(formData.email) || isEmpty(formData.password)) {

@@ -5,15 +5,14 @@ import { size } from 'lodash'
 import * as firebase from 'firebase'
 import { reauthenticate } from '../../utils/api'
 
-const ChangePasswordForm = ({ setShowModal, toastRef }) => {
+const ChangePasswordForm = ({ setShowModal }) => {
 	const [showPassword, setShowPassword] = useState(false)
 	const [formData, setFormData] = useState(defaultValues())
 	const [errors, setErrors] = useState({})
 	const [isLoading, setIsLoading] = useState(false)
 
-	const onChange = (e, type) => {
+	const onChange = (e, type) =>
 		setFormData({ ...formData, [type]: e.nativeEvent.text })
-	}
 
 	const onSubmit = async () => {
 		setErrors({})
@@ -51,19 +50,15 @@ const ChangePasswordForm = ({ setShowModal, toastRef }) => {
 						.then(() => {
 							setIsLoading(false)
 							setShowModal(false)
-							firebase.auth().signOut()
+							return firebase.auth().signOut()
 						})
 						.catch(() => {
-							setErrors({
-								other: 'Error updating password',
-							})
+							setErrors({ other: 'Error updating password' })
 							setIsLoading(false)
 						})
 				})
 				.catch(() => {
-					setErrors({
-						password: 'Incorrect password',
-					})
+					setErrors({ password: 'Incorrect password' })
 					setIsLoading(false)
 				})
 		}
